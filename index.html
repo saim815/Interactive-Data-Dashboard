@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Google AI Studio App</title>
+    <script>
+      // Automatically suppress expected Vite HMR websocket connection complaints in preview iframe
+      (function() {
+        const originalError = console.error;
+        console.error = function(...args) {
+          if (args[0] && typeof args[0] === 'string' && (args[0].includes('failed to connect') || args[0].includes('WebSocket') || args[0].includes('websocket'))) {
+            return;
+          }
+          originalError.apply(console, args);
+        };
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+          if (args[0] && typeof args[0] === 'string' && (args[0].includes('failed to connect') || args[0].includes('WebSocket') || args[0].includes('websocket'))) {
+            return;
+          }
+          originalWarn.apply(console, args);
+        };
+
+        // Silence unhandled rejections related to system WebSocket connections
+        window.addEventListener('unhandledrejection', function(event) {
+          const reason = event.reason;
+          const msg = reason ? (reason.message || String(reason)) : '';
+          if (
+            msg.includes('WebSocket') || 
+            msg.includes('websocket') || 
+            msg.includes('closed without opened') || 
+            msg.includes('ws://') || 
+            msg.includes('wss://')
+          ) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }, true);
+
+        // Silence standard error events related to system WebSocket connections
+        window.addEventListener('error', function(event) {
+          const msg = event.message || '';
+          if (
+            msg.includes('WebSocket') || 
+            msg.includes('websocket') || 
+            msg.includes('closed without opened') || 
+            msg.includes('ws://') || 
+            msg.includes('wss://')
+          ) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }, true);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

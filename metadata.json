@@ -1,0 +1,6 @@
+{
+  "name": "Interactive Data Dashboard",
+  "description": "A high-performance interactive data dashboard to visualize, filter, analyze, and style text, CSV, or JSON datasets with beautiful graphics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
